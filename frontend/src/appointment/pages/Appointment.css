@@ -1,0 +1,51 @@
+.main-appo {
+    margin-left: 40vh;
+    margin-top: 10vh;
+    padding: 20px;
+    padding-top: 80px;
+    width: calc(250vh - 650px);
+    /*height: calc(100vh - 200px); /* Adjust height to fit within the viewport */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    transition: margin-left 0.3s, width 0.3s;
+  }
+.main-history{
+    
+    margin-left: 40vh;
+    margin-top: 10vh;
+    padding: 20px;
+    padding-top: 80px;
+    width: calc(250vh - 650px);
+    /*height: calc(100vh - 200px); /* Adjust height to fit within the viewport */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    transition: margin-left 0.3s, width 0.3s;
+  }
+
+.appointment-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.btn-cancel {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn-cancel:hover {
+    background-color: #c82333;
+}
+.search-bar{
+    position: fixed;
+    margin-left: 60vh;
+    width: 50%;
+    top: 60pt;
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    transition: margin-left 0.3s, width 0.3s;
+}

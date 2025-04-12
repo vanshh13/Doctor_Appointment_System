@@ -1,0 +1,123 @@
+/* Main Dashboard container */
+.main-pat_Dash {
+    margin-top: 4vh;
+    margin-left: 35vh; /* Adjust margin to accommodate sidebar */
+    padding: 40px 40px; /* Increased padding for better spacing */
+    padding-top: 80px; /* Maintain padding at the top */
+    width: calc(96vw - 310px); /* Adjust width based on sidebar size */
+    /*height: calc(100vh - 0px); /* Full-height minus header/footer */
+    overflow-y: auto;
+    transition: margin-left 0.3s, width 0.3s;
+}
+
+/* Individual card styling */
+.card {
+    background-color: #fff;
+    padding: 30px; /* More padding for better layout */
+    border-radius: 12px; /* Smoother corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer, elevated shadow */
+    margin-bottom: 30px; /* Space between cards */
+    transition: transform 0.2s ease-in-out; /* Hover effect transition */
+}
+
+/* Card hover effect */
+.card:hover {
+    transform: translateY(-10px); /* Slight elevation on hover */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+/* Stats container */
+.stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Space between stat cards */
+    margin-bottom: 40px; /* More space under the stats section */
+    flex-wrap: wrap; /* Responsive for smaller screens */
+}
+
+/* Individual stat card */
+.stat-card {
+    flex: 1;
+    color: #fff; /* Text color for better contrast */
+    border-radius: 12px;
+    padding: 30px;
+    margin-right: 20px; /* Space between cards */
+    text-align: center;
+    transition: background-color 0.3s ease;
+    min-width: 250px; /* Ensure minimum size on smaller screens */
+}
+
+/* Hover effect for stat cards */
+.stat-card:hover {
+    background-color: #eff3f2; /* Slightly darker green on hover */
+}
+
+/* Stat card title */
+.stat-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #4caf50;
+    font-weight: bold;
+}
+
+/* Stat card number */
+.stat-card p {
+    font-size: 36px; /* Larger for numbers */
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Appointments, History, and Prescriptions section */
+.upcoming-appointments, .medical-history, .prescriptions, .profile {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Section headings */
+.card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333; /* Darker text color for better readability */
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0; /* Separator line under section title */
+    padding-bottom: 10px;
+}
+
+/* List inside each card */
+.card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card ul li {
+    font-size: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0; /* Divider between items */
+    color: #555;
+}
+
+/* Last list item without border */
+.card ul li:last-child {
+    border-bottom: none;
+}
+
+
+/* Responsive layout for smaller screens */
+@media (max-width: 768px) {
+    .stats {
+        flex-direction: column; /* Stack stats vertically */
+    }
+
+    .stat-card {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .main-pat_Dash {
+        margin-left: 0; /* Adjust for mobile screens */
+        width: 100vw;
+    }
+}
