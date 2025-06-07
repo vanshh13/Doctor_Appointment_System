@@ -190,9 +190,7 @@ h3 {
 @media (min-width: 885px) {
     .admin-content {
         padding: 40px;
-        margin-left: 5vw;
-        max-width: 200vw;
-        /* The centering and width logic from 768px applies and scales */
+        margin-left: 2vw;
     }
 
     .metrics-card {
