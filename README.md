@@ -1,6 +1,6 @@
 # Doctor Appointment System
 
-Welcome to the **Doctor Appointment System**! This web-based application simplifies the process of finding doctors, booking appointments, and managing patient healthcare records. It provides a seamless experience for patients to connect with healthcare providers and for doctors/receptionists to manage their schedules efficiently.
+Welcome to the **Doctor Appointment System**! This web-based application simplifies finding doctors, booking appointments, and managing patient healthcare records. It offers a seamless experience for patients to connect with healthcare providers and for doctors/receptionists to manage their schedules efficiently.
 
 ---
 
@@ -8,16 +8,15 @@ Welcome to the **Doctor Appointment System**! This web-based application simplif
 
 Here's a glimpse of the Doctor Appointment System in action across various user interfaces:
 
-| Hospital List | Patient Dashboard | Doctor Dashboard |
-| :------------------------------------------------------: | :----------------------------------------------------------------: | :---------------------------------------------------------: | :-------------------------------------------------------: |
-| ![Hospital List Screenshot](frontend/public/project_SS/HosptilList.png) | ![Patient Dashboard Screenshot](frontend/public/project_SS/PatientDB.png) | ![Doctor Dashboard Screenshot](frontend/public/project_SS/DoctorDB.png) |
-| *Secure Login/Registration* | *Browse Available Hospitals* | *Patient's Personalized Overview* | *Doctor's Appointment & Patient View* |
+| Hospital List | Patient Dashboard | Doctor Dashboard | Receptionist Dashboard |
+| :------------------------------------------------------: | :---------------------------------------------------------: | :-------------------------------------------------------: | :---------------------------------------------------------------: |
+| ![Hospital List Screenshot](frontend/public/project_SS/HosptilList.png) | ![Patient Dashboard Screenshot](frontend/public/project_SS/PatientDB.png) | ![Doctor Dashboard Screenshot](frontend/public/project_SS/DoctorDB.png) | ![Receptionist Dashboard Screenshot](frontend/public/project_SS/ReceptionistDB.png) |
+| *Browse Available Hospitals* | *Patient's Personalized Overview* | *Doctor's Appointment & Patient View* | *Manage Pending Appointments* |
 
-| Receptionist Dashboard | Admin Dashboard |
-| :---------------------------------------------------------------: | :-------------------------------------------------------: |
-| ![Receptionist Dashboard Screenshot](frontend/public/project_SS/ReceptionistDB.png) | ![Admin Dashboard Screenshot](frontend/public/project_SS/AdminDB.png) |
-| *Manage Pending Appointments* | *Overall System Management* |
-
+| Admin Dashboard |
+| :-------------------------------------------------------: |
+| ![Admin Dashboard Screenshot](frontend/public/project_SS/AdminDB.png) |
+| *Overall System Management* |
 
 ---
 
@@ -68,6 +67,8 @@ This system offers a comprehensive set of functionalities for various user roles
 ## 💻 Technical Assumptions & Dependencies
 
 * **Internet Connectivity:** The system requires an active internet connection for end-users to access the website.
+* **Modern Web Browser:** Users are assumed to have a compatible web browser capable of displaying the website correctly.
+
 ---
 
 ## 🛠️ Installation & Setup
@@ -83,12 +84,19 @@ cd Doctor_Appointment_System
 cd backend
 npm install
 
-# 3. Start the backend server
+# 3. Configure your backend environment variables
+# Create a '.env' file in the 'backend' directory with your sensitive information.
+# Example .env file content:
+# MONGODB_URI=mongodb+srv://your_username:your_password@your_cluster_url/your_database_name?retryWrites=true&w=majority
+# JWT_SECRET=your_secret_jwt_key_here
+# PORT=5000
+
+# 4. Start the backend server
 npm start # This will typically run on http://localhost:5000
 
-# 4. Navigate into the frontend directory and install dependencies
+# 5. Navigate into the frontend directory and install dependencies
 cd ../frontend
 npm install
 
-# 5. Start the frontend application
+# 6. Start the frontend application
 npm start # This will typically run on http://localhost:3000
