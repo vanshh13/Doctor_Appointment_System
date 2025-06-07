@@ -1,54 +1,220 @@
-.admin-page {
-  display: flex;
+/* AdminDashboard.css */
+
+/*
+* IMPORTANT: Adjust these variables based on your actual Header and Sidebar heights/widths.
+* Use browser dev tools to confirm the exact heights.
+*/
+:root {
+    --header-height-mobile: 60px; /* Example height of your Header on mobile */
+    --header-height-desktop: 20px; /* Example height of your Header on desktop */
+    --sidebar-height-mobile: 50px; /* Example height of your Sidebar when horizontal on mobile (min-height) */
+    --sidebar-width-desktop: 250px; /* Fixed width of Sidebar on desktop */
+    --content-max-width: 1200px; /* Max width for the main content area */
 }
 
+/* Base styles (Mobile-first) */
+.admin-page {
+    width: 100%; /* Ensure it takes full width of the viewport */
+    min-width: 90vw; /* Ensures page itself doesn't cause horizontal scroll on smaller screens */
+    min-height: 100vh; /* Ensure it covers the full viewport height */
+    box-sizing: border-box; /* Include padding/border in total dimensions */
+}
+
+/* Main content area that shifts based on sidebar */
 .admin-content {
-  margin-left: 250px; /* Adjust according to Sidebar width */
-  padding: 20px;
-  width: 100%;
+    padding: 15px; /* Consistent padding around content */
+    width: 100%; /* Default to full width on mobile */
+    box-sizing: border-box; /* Important for width/padding calculations */
+    flex-grow: 1; /* Allows content to expand vertically (more relevant if parent is flex) */
+
+    /* On mobile, push content down to avoid overlap with fixed Header and Sidebar.
+       Add extra padding-top to account for potential sidebar wrapping. */
+    margin-top: 0;
+    /* This additional padding-top creates extra clearance for when the sidebar wraps.
+       Adjust '20px' as needed based on how much your sidebar content wraps. */
+    padding-top: calc(15px + 20px);
+
+    margin-left: 0; /* No left margin on mobile */
+    margin-right: 0; /* No right margin on mobile */
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center; /* Center headings on mobile for better appearance */
+}
+
+h3 {
+    font-size: 1.4em;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    color: #555;
+    text-align: center; /* Center headings on mobile */
 }
 
 .search-input {
-  padding: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: calc(100% - 30px); /* Account for padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+    display: block; /* Ensures it takes full width */
+    margin-left: auto; /* Center input */
+    margin-right: auto; /* Center input */
 }
 
-.metrics-container {
-  margin-bottom: 30px;
+.metrics-container,
+.notifications-container {
+    margin-bottom: 25px;
+    width: 100%; /* Ensure containers take full width */
+    box-sizing: border-box;
 }
 
 .metrics-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 15px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px; /* Slightly less padding on mobile */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    display: grid;
+    /* On mobile, stack items unless screen is wide enough for two */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Adjusted min-width for smaller devices */
+    gap: 10px; /* Reduced gap on mobile */
 }
 
-.notifications-container {
-  margin-bottom: 30px;
+.metrics-card p {
+    margin: 5px 0;
+    font-size: 0.95em; /* Slightly smaller font for better fit on small screens */
+    color: #444;
+    text-align: center; /* Center text within each metric */
 }
 
 .notifications-container ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 
 .notifications-container li {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.2s;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column; /* Stack message and date */
+    align-items: flex-start;
 }
 
 .notifications-container li:hover {
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.notifications-container li strong {
+    font-size: 1.05em;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.notifications-container li span {
+    font-size: 0.8em;
+    color: #888;
+}
+
+
+/* --- Media Queries --- */
+
+/* For tablets and larger screens (min-width 768px) */
+@media (min-width: 768px) {
+    .admin-page {
+        /* No flex-direction here; Header and Sidebar are fixed and out of flow */
+        display: block; /* Ensures normal block flow */
+    }
+
+    .admin-content {
+        /* Revert padding-top for desktop */
+        padding: 30px; /* More padding on desktop */
+
+        /* On desktop, manage space for the fixed sidebar and header */
+        margin-top: var(--header-height-desktop); /* Push content down by header height */
+
+        /* To center content within the remaining available space after the sidebar */
+        width: auto; /* Allow width to be determined by max-width and margins */
+        max-width: var(--content-max-width); /* Apply the desired max width */
+        margin-right: auto; /* Push content to the left to enable auto-centering */
+        /* This calculation centers the block to the right of the sidebar */
+        margin-left: calc(var(--sidebar-width-desktop) + ((110vw - var(--sidebar-width-desktop) - var(--content-max-width)) / 2));
+        box-sizing: border-box; /* Crucial for width/padding calculations */
+        display: block; /* Ensure block model for auto margins */
+    }
+
+    h2, h3 {
+        text-align: left; /* Align headings left on desktop */
+    }
+
+    .search-input {
+        width: 70%;
+        max-width: 500px;
+        margin-left: 0; /* Align left */
+        margin-right: auto;
+    }
+
+    .metrics-card {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 20px; /* More padding on desktop */
+    }
+
+    .metrics-card p {
+        font-size: 1.1em; /* Restore larger font for desktop */
+        text-align: left; /* Align text left */
+    }
+
+    .notifications-container li {
+        flex-direction: row; /* Layout message and date horizontally */
+        justify-content: space-between;
+        align-items: center; /* Center items vertically */
+    }
+
+    .notifications-container li strong {
+        margin-bottom: 0;
+    }
+}
+
+/* For larger desktops (min-width 1024px) */
+@media (min-width: 885px) {
+    .admin-content {
+        padding: 40px;
+        margin-left: 5vw;
+        max-width: 200vw;
+        /* The centering and width logic from 768px applies and scales */
+    }
+
+    .metrics-card {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .admin-page {
+        display: block;
+    }
+    .admin-content {
+        margin-left: 0;
+        width: auto;
+        padding: 0;
+    }
+    .header, .sidebar, .search-input {
+        display: none;
+    }
+    .metrics-card, .notifications-container li {
+        box-shadow: none;
+        border: 1px solid #eee;
+    }
 }

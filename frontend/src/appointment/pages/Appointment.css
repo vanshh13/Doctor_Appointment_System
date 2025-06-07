@@ -1,25 +1,77 @@
-.main-appo {
-    margin-left: 40vh;
-    margin-top: 10vh;
-    padding: 20px;
-    padding-top: 80px;
-    width: calc(250vh - 650px);
-    /*height: calc(100vh - 200px); /* Adjust height to fit within the viewport */
-    overflow-y: auto; /* Enable vertical scrolling if content overflows */
-    transition: margin-left 0.3s, width 0.3s;
-  }
-.main-history{
-    
-    margin-left: 40vh;
-    margin-top: 10vh;
-    padding: 20px;
-    padding-top: 80px;
-    width: calc(250vh - 650px);
-    /*height: calc(100vh - 200px); /* Adjust height to fit within the viewport */
-    overflow-y: auto; /* Enable vertical scrolling if content overflows */
-    transition: margin-left 0.3s, width 0.3s;
-  }
+/* AppointmentsAndHistory.css */
 
+/* Define CSS variables for consistent spacing and positioning */
+:root {
+    --header-height-mobile: 60px; /* Adjust this to your actual header height on mobile */
+    --header-height-desktop: 80px; /* Adjust this to your actual header height on desktop */
+    --sidebar-width-desktop: 250px; /* Adjust this to your actual sidebar width on desktop */
+}
+
+/* --- Main Content Containers: Appointments and Medical History --- */
+/* These classes (main-appo, main-history) are often used on a page's primary content wrapper. */
+.main-appo,
+.main-history {
+    /* Base styles for mobile-first approach (full width, no left margin) */
+    padding: 20px; /* Default padding for all sides */
+    /* Top padding dynamically adjusts for the fixed header height on mobile */
+    padding-top: calc(var(--header-height-mobile) + 20px);
+    margin-left: 0; /* Ensures full width on smaller screens */
+    width: 100%; /* Takes up 100% of the viewport width on mobile */
+    overflow-y: auto; /* Enables vertical scrolling if content exceeds viewport height */
+    box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+    /* Sets a minimum height to ensure content fills the screen below the header */
+    min-height: calc(100vh - var(--header-height-mobile));
+    /* Smooth transitions for responsive changes in margin and width */
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out, padding-top 0.3s ease-in-out;
+}
+
+/* Desktop and Tablet Adjustments (for screens 768px and wider) */
+@media (min-width: 768px) {
+    .main-appo,
+    .main-history {
+        /* Adds left margin to accommodate the fixed desktop sidebar */
+        margin-left: 0;
+        /* Calculates remaining width after accounting for the sidebar */
+        width: calc(100% - var(--sidebar-width-desktop));
+        padding: 30px; /* Slightly more padding for larger screens */
+        /* Top padding dynamically adjusts for the fixed header height on desktop */
+        padding-top: calc(var(--header-height-desktop) + 20px);
+        /* Adjusts minimum height for desktop header */
+        min-height: calc(100vh - var(--header-height-desktop));
+    }
+}
+
+/* --- Search Bar --- */
+/* This styling ensures the search bar is responsive and flows with the document. */
+/* Removed fixed positioning as it often causes layout issues on various screen sizes. */
+.search-bar {
+    width: 100%; /* Full width on small screens */
+    max-width: 600px; /* Limits maximum width on larger screens */
+    margin: 0 auto 30px auto; /* Centers the search bar horizontally and adds bottom margin */
+    padding: 0 10px; /* Small horizontal padding */
+    box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+/* Styling for the input field inside the search bar */
+.search-bar input {
+    width: 100%; /* Makes the input field take the full width of its container */
+    padding: 12px 15px; /* Generous padding for better touch targets and readability */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+    font-size: 1em; /* Standard font size */
+    color: #333; /* Dark text color */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions for focus effects */
+}
+
+/* Focus state for the search bar input */
+.search-bar input:focus {
+    outline: none; /* Removes default outline */
+    border-color: #4CAF50; /* Highlights border with green */
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); /* Adds a soft green glow */
+}
+
+/* --- Appointment Card --- */
 .appointment-card {
     background-color: white;
     padding: 20px;
@@ -27,25 +79,74 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     display: flex;
+    flex-direction: column; /* Default to column layout on small screens (stack content) */
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* Aligns content to the start (left) in column layout */
+    text-align: left; /* Ensures text is left-aligned */
 }
+
+/* Adjustments for larger screens where content can be side-by-side */
+@media (min-width: 600px) {
+    .appointment-card {
+        flex-direction: row; /* Arranges content in a row (side-by-side) */
+        align-items: center; /* Vertically centers items in the row */
+        text-align: left; /* Keeps text aligned left */
+    }
+}
+
+/* Styling for the details section within the card */
+.appointment-card .details {
+    flex-grow: 1; /* Allows the details section to take up available space */
+    margin-bottom: 15px; /* Adds space below details when stacked on mobile */
+    width: 100%; /* Takes full width when stacked on mobile */
+}
+
+/* Adjustments for details section on wider screens */
+@media (min-width: 600px) {
+    .appointment-card .details {
+        margin-bottom: 0; /* Removes bottom margin when in a row layout */
+        margin-right: 20px; /* Adds space between details and the cancel button */
+        width: auto; /* Allows width to shrink to content size */
+    }
+}
+
+/* Headings within the appointment card */
+.appointment-card h3 {
+    font-size: 1.2em; /* Slightly larger font for headings */
+    margin-bottom: 5px;
+    color: #333; /* Dark gray text */
+}
+
+/* Paragraph text within the appointment card */
+.appointment-card p {
+    font-size: 0.9em; /* Smaller font for details */
+    color: #666; /* Medium gray text */
+    margin-bottom: 3px;
+}
+
+/* --- Cancel Button --- */
 .btn-cancel {
-    background-color: #dc3545;
+    background-color: #dc3545; /* Red background */
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1em; /* Ensures the button text is readable and provides a good touch target */
+    min-width: 100px; /* Ensures the button has a minimum clickable area */
+    /* Aligns the button to the end (right) when stacked in a column on mobile */
+    align-self: flex-end;
+    transition: background-color 0.2s ease; /* Smooth transition for hover effect */
 }
+
+/* Hover effect for the cancel button */
 .btn-cancel:hover {
-    background-color: #c82333;
+    background-color: #c82333; /* Darker red on hover */
 }
-.search-bar{
-    position: fixed;
-    margin-left: 60vh;
-    width: 50%;
-    top: 60pt;
-    overflow-y: auto; /* Enable vertical scrolling if content overflows */
-    transition: margin-left 0.3s, width 0.3s;
+
+/* Reset button alignment on wider screens */
+@media (min-width: 600px) {
+    .btn-cancel {
+        align-self: auto; /* Resets align-self to default for row layout */
+    }
 }

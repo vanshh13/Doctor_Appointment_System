@@ -110,16 +110,6 @@ const MainContent = () => {
                 <h3>Calendar</h3>
                 <p><AppointmentCalendar appointments={appointments} /></p>
             </div>
-             {/* Add Calendar Component */}
-
-            {/* <div className="card recent-activity">
-                <h3>Recent Activity</h3>
-                <ul>
-                    <li>User X booked an appointment.</li>
-                    <li>User Y cancelled an appointment.</li>
-                    <li>User Z updated their profile.</li>
-                </ul>
-            </div> */}
         </div>
     );
 };

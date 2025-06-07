@@ -1,18 +1,35 @@
-/* Dashboard.css */
+/* AppointmentHistory.css */
+
+/* --- CSS Variables for Consistent Layout Values (Optional but recommended) --- */
+:root {
+    --header-height-mobile: 60px;
+    --header-height-desktop: 80px;
+    --sidebar-width-desktop: 250px; /* Assuming your sidebar is 250px on desktop */
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+    --max-content-width: 1200px; /* A global max-width for the main content area */
+}
 
 .appointment-history {
-    max-width: 1000px;
-    margin-left: 50vh;
-    margin-top: 20vh;
-    padding: 20px;
+    /* Initial styles for mobile-first approach */
+    padding: var(--spacing-md);
+    margin-top: calc(var(--header-height-mobile) + var(--spacing-md)); /* Space below header */
+    margin-left: 0; /* No margin on mobile, sidebar is likely hidden or overlays */
+    margin-right: 0;
+    width: 100%;
+    box-sizing: border-box; /* Include padding in width calculation */
     background-color: #f8f9fa;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: calc(108vw - 500px);
-    overflow-y: auto;
-    transition: margin-left 0.3s, width 0.3s;
-
-
+    overflow-x: auto; /* Allow horizontal scrolling for tables on small screens */
+    min-height: calc(100vh - var(--header-height-mobile) - var(--spacing-md) * 2); /* Ensure content takes up screen height */
+    
+    /* Center content up to a max-width on larger screens */
+    max-width: var(--max-content-width); 
+    margin-left: auto; 
+    margin-right: auto;
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 
 .appointment-history h2 {
@@ -24,15 +41,18 @@
 
 /* Appointment Table Styling */
 .appointment-table {
-    width: 100%;
+    width: 100%; /* Table takes full width of its container */
     border-collapse: collapse;
     margin-bottom: 20px;
+    min-width: 600px; /* Ensure table doesn't get too squished on smaller screens */
 }
 
-.appointment-table th, .appointment-table td {
+.appointment-table th, 
+.appointment-table td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    white-space: nowrap; /* Prevent text from wrapping in table cells */
 }
 
 .appointment-table th {
@@ -58,9 +78,52 @@
 }
 
 /* Message for no appointment history */
-.appointment-history div {
+.appointment-history > div { /* Target the direct div child for no history message */
     text-align: center;
     font-size: 18px;
     color: #6c757d;
     margin-top: 20px;
+    padding-bottom: 20px; /* Add some padding if it's the only content */
+}
+
+/* --- Media Queries --- */
+
+/* Small devices (portrait tablets and large phones, 576px and up) */
+@media (min-width: 576px) {
+    .appointment-history {
+        padding: var(--spacing-lg);
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media (min-width: 768px) {
+    .appointment-history {
+        /* When sidebar appears, adjust margin */
+        width: calc(100% ); /* Content takes remaining width */
+        margin-top: calc(var(--header-height-desktop) + var(--spacing-lg)); /* Adjust for desktop header */
+        padding: var(--spacing-lg);
+        max-width: unset; /* Remove global max-width for this breakpoint if sidebar is active */
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .appointment-history {
+        padding: var(--spacing-xl); /* Assuming you might want larger padding */
+        /* Re-apply max-width if you want to cap the content width even with a sidebar */
+        max-width: calc(var(--max-content-width) - var(--sidebar-width-desktop)); 
+        margin-left: var(--sidebar-width-desktop); /* Ensure sidebar spacing */
+        margin-right: auto; /* Center it if max-width is applied */
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .appointment-history {
+        /* This breakpoint is often where the global max-width (var(--max-content-width))
+           kicks in to prevent content from becoming too wide. */
+        margin-left: var(--sidebar-width-desktop); /* Keep sidebar spacing */
+        max-width: calc(var(--max-content-width) - var(--sidebar-width-desktop)); /* Enforce max width relative to sidebar */
+        margin-right: auto; /* Center it */
+    }
 }

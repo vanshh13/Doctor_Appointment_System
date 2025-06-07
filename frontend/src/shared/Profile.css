@@ -1,56 +1,137 @@
+/* Profile.css */
+
+/* Define CSS variables for consistent spacing and positioning */
+:root {
+    /* Adjust these values to match your application's actual header and sidebar */
+    --header-height-mobile: 60px;
+    --header-height-desktop: 80px;
+    --sidebar-width-desktop: 250px; /* Assuming a desktop sidebar width */
+}
+
+/* --- Profile Container (Wraps the whole profile section) --- */
+.profile-container {
+    /* Base styles for mobile-first approach */
+    padding: 20px; /* Consistent padding around the content */
+    /* Top padding dynamically adjusts for the fixed header height on mobile */
+    padding-top: calc(var(--header-height-mobile) + 20px); /* Add extra padding below header */
+    margin-left: 0; /* Ensures full width on smaller screens, no sidebar pushing */
+    margin-right: 0; /* Ensures full width on smaller screens */
+    margin-bottom: 5vh; /* Retain some bottom margin, adjust if needed */
+    width: 100%; /* Takes up 100% of the viewport width on mobile */
+    box-sizing: border-box; /* Ensures padding is included in total width */
+    display: flex; /* Use flexbox to center the profile card */
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Align to the top vertically */
+    min-height: calc(100vh - var(--header-height-mobile)); /* Ensure content takes at least remaining height */
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out, padding-top 0.3s ease-in-out;
+}
+
+/* Desktop and Tablet Adjustments (for screens 768px and wider) */
+@media (min-width: 768px) {
+    .profile-container {
+        /* Adds left margin to accommodate the fixed desktop sidebar */
+        margin-left: 0;
+        /* Calculates remaining width after accounting for the sidebar */
+        width: calc(100% );
+        padding: 30px; /* Slightly more padding for larger screens */
+        /* Top padding dynamically adjusts for the fixed header height on desktop */
+        padding-top: calc(var(--header-height-desktop) + 20px);
+        align-items: center; /* Center vertically on desktop */
+        min-height: calc(100vh - var(--header-height-desktop)); /* Adjust min-height for desktop header */
+    }
+}
+
+/* --- Profile Card (The main content block) --- */
 .profile-card {
     background-color: #f9f9f9;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    width: calc(100vh - 100px);
-    margin-top: 20vh;
+    
+    /* Responsive width: Max width for larger screens, full width on small screens */
+    width: 100%; /* Default to full width on mobile */
+    max-width: 500px; /* Limit maximum width on larger screens for better readability */
+    
+    /* Remove fixed margin-top and rely on flexbox centering from profile-container */
+    margin-top: 0; 
+    margin-left: auto; /* Auto margins for horizontal centering within flex container */
+    margin-right: auto;
+    
     text-align: center;
+    box-sizing: border-box; /* Include padding in width calculation */
 }
-.profile-container{
-    margin-top: 60px;
-    margin-left: 500px;
-    margin-bottom: 5vh;
+
+/* --- Profile Image Container --- */
+.profile-image {
+    /* Remove fixed margin-left and let img auto-center */
+    margin-left: auto; 
+    margin-right: auto;
+    text-align: center; /* Ensure text-align center if image is inline-block */
+    margin-bottom: 20px; /* Space below the image */
 }
+
 .profile-image img {
     width: 160px;
     height: 160px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 20px;
-}
-.profile-image {
-    margin-left: 200px;
+    display: block; /* Make image a block element to respect auto margins */
+    margin: 0 auto; /* Center the image itself */
 }
 
+/* --- Profile Information Sections --- */
 .profile-info {
     margin-bottom: 20px;
+    text-align: left; /* Align text within info section to the left */
 }
 
 .profile-field {
     margin: 10px 0;
+    display: flex; /* Use flexbox for label and value alignment */
+    align-items: center; /* Vertically align label and value */
+    flex-wrap: wrap; /* Allow fields to wrap if content is too long on small screens */
 }
 
 .label {
     font-weight: bold;
+    color: #333;
+    min-width: 80px; /* Give labels a minimum width for alignment */
 }
 
 .value {
-    display: inline-block;
+    flex-grow: 1; /* Allow value to take up remaining space */
     margin-left: 10px;
     color: #555;
+    word-break: break-word; /* Allow long words to break and wrap */
 }
 
+/* Responsive adjustments for values to ensure they don't overflow */
+@media (max-width: 400px) {
+    .profile-field {
+        flex-direction: column; /* Stack label and value vertically on very small screens */
+        align-items: flex-start; /* Align stacked items to the left */
+    }
+    .label {
+        margin-bottom: 5px; /* Add space between stacked label and value */
+    }
+    .value {
+        margin-left: 0; /* Remove left margin when stacked */
+    }
+}
+
+/* --- Edit Button --- */
 .edit-button-profile {
     background-color: #4caf50;
     color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
+    padding: 12px 25px; /* Slightly more padding for better touch target */
+    font-size: 17px; /* Slightly larger font */
+    border-radius: 8px; /* More rounded corners */
     cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease; /* Smooth transitions for hover */
 }
 
 .edit-button-profile:hover {
     background-color: #45a049;
+    transform: translateY(-2px); /* Subtle lift on hover */
 }

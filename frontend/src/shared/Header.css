@@ -3,7 +3,7 @@
     background-color: #a8e6a3; /* Light green background */
     padding: 15px 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center the header-container horizontally */
     align-items: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -11,82 +11,140 @@
     top: 0;
     right: 0;
     z-index: 1000;
-  }
-  
-  /* Container for logo, welcome message, and user menu */
-  .header-container {
-    max-width: 1200px;
+    min-height: 60px; /* Ensure a minimum height, especially for desktop */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+/* Container for logo, welcome message, and user menu */
+.header-container {
+    max-width: 1200px; /* This max-width will still apply, but items won't wrap */
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-  }
-  
-  /* Logo styling */
-  .logo h1 {
-    color: #2c3e50; /* Dark text for contrast */
-    font-size: 28px;
+    flex-wrap: nowrap; /* CRUCIAL: Prevent wrapping */
+    gap: 10px 20px; /* Vertical gap 10px, horizontal gap 20px */
+}
+
+/* Logo styling */
+.logo {
+    flex-shrink: 0; /* Prevents the logo from shrinking */
+    flex-grow: 0; /* Prevents the logo from growing */
+    min-width: 0; /* Allow logo to shrink if needed */
+}
+
+.logo h1 {
+    color: #2c3e50;
+    font-size: 28px; /* Maintain font size */
     font-weight: bold;
     text-transform: uppercase;
     margin: 0;
-  }
-  
-  /* Welcome message */
-  .welcome-message {
-    color: #2c3e50; /* Dark text */
-    font-size: 18px;
+    white-space: nowrap; /* CRUCIAL: Keep logo text on one line */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis if truncated */
+    min-width: 0; /* Allow the h1 to shrink if needed */
+}
+
+/* Welcome message */
+.welcome-message {
+    color: #2c3e50;
+    font-size: 18px; /* Maintain font size */
     font-weight: 400;
-  }
-  
-  /* User menu styling */
-  .user-menu {
+    white-space: nowrap; /* CRUCIAL: Keep welcome message on one line */
+    flex-grow: 1; /* Allows the welcome message to take up available space */
+    flex-shrink: 1; /* Allows it to shrink if necessary */
+    min-width: 0; /* Allow welcome message to shrink */
+    text-align: center; /* Center align text by default for a balanced look */
+    overflow: hidden; /* Hide overflow if text is too long */
+    text-overflow: ellipsis; /* Add ellipsis for truncated text */
+}
+
+/* User menu styling */
+.user-menu {
     display: flex;
     align-items: center;
-    color: #2c3e50; /* Dark text */
-    font-size: 18px;
-  }
-  
-  .user-menu span {
-    margin-right: 10px;
-  }
-  
-  .user-menu a {
-    color: #ff5f5f; /* Red logout link */
+    color: #2c3e50;
+    font-size: 18px; /* Maintain font size */
+    gap: 10px; /* Spacing between items */
+    flex-wrap: nowrap; /* CRUCIAL: Prevent wrapping in the user menu */
+    flex-shrink: 0; /* Prevents the user menu block from shrinking */
+    flex-grow: 0; /* Prevents the user menu block from growing */
+    min-width: 0; /* Allow user menu to shrink */
+}
+
+.user-menu span.separator {
+    white-space: nowrap; /* Keep separator on one line */
+    flex-shrink: 0;
+    min-width: 0;
+}
+
+.user-menu a {
+    color: #ff5f5f;
     text-decoration: none;
     font-weight: 500;
-  }
-  
-  .user-menu a:hover {
-    color: #ff2f2f;
-  }
+    transition: color 0.3s ease;
+    white-space: nowrap; /* CRUCIAL: Keep links on one line */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+    min-width: 0;
+}
 
-  .review-button {
+.user-menu a:hover {
+    color: #ff2f2f;
+}
+
+.review-button {
     background: none;
     border: none;
     cursor: pointer;
-    color: #4CAF50; /* Change to your desired color */
-    font-size: 1.5rem; /* Size of the icon */
-    margin-left: 1rem; /* Spacing */
+    color: #4CAF50;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap; /* Keep button text on one line */
+    flex-shrink: 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Review Form Styling (for modal appearance) */
+.review-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
 }
 
 .review-form {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background: white;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure it appears above other elements */
+    z-index: 1000;
+    width: 90%;
+    max-width: 500px;
+    box-sizing: border-box;
 }
 
 .review-form textarea {
     width: 100%;
     height: 100px;
     margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .review-form button {
@@ -95,8 +153,93 @@
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
 
 .review-form button:hover {
     background-color: #45a049;
+}
+
+/*
+    IMPORTANT: We are removing all media queries that would cause stacking
+    or significant font size reductions to keep everything on one line.
+    You might want to make font sizes smaller on smaller screens if they become unreadable.
+*/
+
+/* Tablet and smaller desktop screens (up to 1024px) */
+@media (max-width: 1024px) {
+    .header {
+        padding: 10px 20px;
+    }
+
+    .logo h1 {
+        font-size: 24px; /* Slightly reduce font size, but still large */
+    }
+
+    .welcome-message,
+    .user-menu {
+        font-size: 16px; /* Slightly reduce font size */
+    }
+}
+
+/* Mobile Devices (e.g., up to 767px wide) */
+@media (max-width: 767px) {
+    .header {
+        padding: 10px 15px;
+        /* Do NOT set flex-direction: column here if you want it strictly on one line */
+    }
+
+    .header-container {
+        /* Do NOT set flex-direction: column here if you want it strictly on one line */
+        gap: 8px 10px; /* Reduced gap for tighter mobile layout */
+        width: 100%;
+        /* Ensure items can compress, but won't wrap */
+    }
+
+    .logo h1 {
+        font-size: 18px; /* Further reduce font size for very small screens */
+    }
+
+    .welcome-message {
+        font-size: 13px; /* Further reduce font size */
+    }
+
+    .user-menu {
+        font-size: 13px; /* Further reduce font size */
+        gap: 5px; /* Smaller gap for user menu items */
+    }
+
+    .user-menu span.separator {
+        /* You might still want to hide the separator if space is extremely tight */
+        /* display: none; */
+    }
+
+    .review-button {
+        font-size: 1rem; /* Adjust button size */
+    }
+
+    .review-form {
+        width: 95%;
+        padding: 15px;
+    }
+}
+
+/* Extra small mobile devices (e.g., up to 400px wide) */
+@media (max-width: 400px) {
+    .header {
+        padding: 5px 10px;
+    }
+
+    .logo h1 {
+        font-size: 16px; /* Even smaller font size */
+    }
+
+    .welcome-message,
+    .user-menu {
+        font-size: 11px; /* Even smaller font size */
+    }
+    .user-menu span.separator {
+        display: none; /* Definitely hide separator on tiny screens */
+    }
 }

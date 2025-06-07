@@ -1,105 +1,220 @@
+/* DoctorDashboard.css */
+:root {
+    --header-height-mobile: 60px;
+    --header-height-desktop: 80px;
+    --sidebar-width-desktop: 200px; 
 
-.main-doc_dash{
-    margin-top: 4vh;
-    margin-left: 35vh; /* Adjust margin to accommodate sidebar */
-    padding: 40px 40px; /* Increased padding for better spacing */
-    padding-top: 80px; /* Maintain padding at the top */
-    width: calc(98vw - 310px); /* Adjust width based on sidebar size */
-    /* height: calc(100vh - 10px); /* Full-height minus header/footer */
-    overflow-y: auto;
-    transition: margin-left 0.3s, width 0.3s;
+    /* Global spacing and color variables */
+    --spacing-xs: 8px; 
+    --spacing-sm: 12px;
+    --spacing-md: 18px;
+    --spacing-lg: 24px;
+    --spacing-xl: 36px;
+
+    --color-primary: #4caf50;
+    --color-secondary: #2196f3;
+    --color-warning: #ffeb3b;
+    --color-text-dark: #333;
+    --color-text-medium: #555;
+    --color-text-light: #666;
+    --color-bg-light: #f9f9f9;
+    --color-card-bg: #fff;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+    --shadow-medium: rgba(0, 0, 0, 0.1);
+
+    --stat-card-min-width: 140px; 
+    --calendar-container-max-width: 600px; 
+    --dashboard-max-width: 1400px; 
 }
 
+.main-doc_dash {
+
+    padding: var(--spacing-md); /* Consistent padding for all sides */
+    padding-top: calc(var(--header-height-mobile) + var(--spacing-md)); 
+    margin-left: 0;
+    width: 100%;
+    overflow-y: visible; /* Allow content to dictate page scroll, not just this div */
+    box-sizing: border-box;
+    
+    /* For centering content when it doesn't take full width (e.g., on very large screens with a sidebar) */
+    margin-right: auto;
+    margin-left: auto; /* Centralize on small screens initially */
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out, padding-top 0.3s ease-in-out;
+
+    /* Add background color here if you want the dashboard area to have one */
+    background-color: var(--color-bg-light); 
+}
+
+/* --- Doctor Selection Dropdown (.doctor-selection select) --- */
 .doctor-selection select {
-    padding: 5px;
-    font-size: 16px;
+    padding: var(--spacing-sm) var(--spacing-md); /* Added padding */
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: var(--color-card-bg);
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M208.5%2087.5l-80%2080-80-80%2020.5-20.5%2059.5%2059.5%2059.5-59.5z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-sm) center;
+    background-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px var(--shadow-light);
+    width: 100%; 
+    max-width: 300px; 
+    margin-bottom: var(--spacing-md); /* Add some space below dropdown */
 }
 
+.doctor-selection select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+/* --- User Menu (.user-menu) --- */
+/* Assuming this is part of the header or a separate component */
 .user-menu {
-    padding-right: 20px;
-}
-.main {
-    margin-left: 200px;
-    padding: 20px;
-    padding-top: 60px;
-    width: calc(100% - 200px);
-    overflow-y: auto;
+    padding-right: var(--spacing-md);
 }
 
+/* --- General Main Content Wrapper (.main) --- */
+/* If this `.main` div is inside `.main-doc_dash`,
+   its `overflow-y` and `width` properties are redundant.
+   It should simply be a content wrapper inside the dashboard. */
+.main {
+    padding: 0; /* Remove padding if .main-doc_dash already handles it */
+    padding-top: var(--spacing-lg); /* Only if you need specific top padding inside this wrapper */
+    margin: 0 auto; /* Center its content if it has a max-width */
+    width: 100%;
+    /* Removed overflow-y and transition from here */
+    box-sizing: border-box;
+    /* max-width for the main content within the dashboard. */
+    max-width: var(--dashboard-max-width); 
+}
+
+
+/* --- Stats Section (.stats) --- */
 .stats {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center; 
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    width: 100%; 
+    max-width: 100%; /* Ensure it always fills the available space of its parent */
+    margin-left: auto;
+    margin-right: auto;
 }
 
+/* --- Individual Stat Card (.stat-card) --- */
 .stat-card {
-    flex: 1;
-    margin: 10px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
+    min-width: var(--stat-card-min-width); 
+    flex: 1 1 calc(33.33% - var(--spacing-md)); 
+    padding: var(--spacing-lg);
+    background-color: var(--color-card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px var(--shadow-light);
     text-align: center;
-    min-width: 150px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px var(--shadow-medium);
+}
+
+.stat-card h3 {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.stat-card p {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--color-text-dark);
+}
+
+/* --- General Card Styling (.card) --- */
 .card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    background-color: var(--color-card-bg);
+    padding: var(--spacing-lg);
+    border-radius: 10px;
+    box-shadow: 0 0 12px var(--shadow-light);
+    margin-bottom: var(--spacing-lg);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    width: 100%; 
+    /* The max-width for .card will be set within media queries for better control */
+    margin-left: auto; 
+    margin-right: auto; 
 }
 
-
-@media (max-width: 768px) {
-    .main {
-        margin-left: 150px;
-        width: calc(100% - 150px);
-    }
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px var(--shadow-medium);
 }
 
-
-@media (max-width: 480px) {
-    .main {
-        margin-left: 100px;
-        width: calc(100% - 100px);
-    }
-}
-
-
-/* src/components/AppointmentCalendar.css */
-/* Calendar Container Styling */
+/* --- Appointment Calendar Styling (.calendar-container) --- */
 .calendar-container {
-    margin-top: 20px;
+    margin-top: var(--spacing-xl);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
-/* Calendar Title */
-.calendar-container h3 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Calendar Styling */
-.react-calendar {
+    padding: var(--spacing-lg);
+    background-color: var(--color-bg-light);
+    box-shadow: 0 6px 15px var(--shadow-medium);
+    border-radius: 12px;
     width: 100%;
-    max-width: 500px;
+    max-width: var(--calendar-container-max-width); 
+    box-sizing: border-box;
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+.calendar-container h3 {
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-dark);
+}
+
+/* React Calendar Specific Styling (.react-calendar) */
+.react-calendar {
+    width: 100%; 
+    max-width: 500px; /* Internal max-width for the calendar component itself */
     border: none;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--shadow-light);
+    font-family: inherit;
+}
+
+.react-calendar__navigation button {
+    min-width: 44px;
+    background: none;
+    font-size: 1.2rem;
+    color: var(--color-text-dark);
+    transition: background-color 0.3s;
+}
+
+.react-calendar__navigation button:hover {
+    background-color: #e0e0e0;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+    background-color: #e0e0e0;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--color-text-medium);
 }
 
 .react-calendar__tile {
-    padding: 10px;
+    padding: var(--spacing-sm) var(--spacing-xs);
     text-align: center;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    font-size: 0.95rem;
 }
 
 .react-calendar__tile:hover {
@@ -107,36 +222,126 @@
 }
 
 .react-calendar__tile--active {
-    background-color: #4caf50 !important;
+    background-color: var(--color-primary) !important;
     color: white;
+    font-weight: bold;
 }
 
 .react-calendar__tile--now {
-    background-color: #ffeb3b !important;
-    color: #333;
+    background-color: var(--color-warning) !important;
+    color: var(--color-text-dark);
+    font-weight: bold;
 }
 
 .react-calendar__tile--has-appointment {
-    background-color: #2196f3;
+    background-color: var(--color-secondary) !important;
     color: white;
     font-weight: bold;
 }
 
-/* Appointment Marking */
 .has-appointment {
-    background-color: #2196f3 !important;
+    background-color: var(--color-secondary) !important;
     color: white;
     font-weight: bold;
 }
 
-/* Add some responsiveness */
-@media (max-width: 768px) {
-    .calendar-container {
-        width: 100%;
+@media (max-width: 479px) {
+    .main-doc_dash {
+        padding: var(--spacing-sm); 
+        padding-top: calc(var(--header-height-mobile) + var(--spacing-sm));
     }
 
-    .react-calendar {
-        width: 100%;
-        max-width: none;
+    .stats {
+        flex-direction: column; /* Stack stat cards vertically */
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+
+    .stat-card {
+        width: 100%; 
+        max-width: 300px; 
+    }
+
+    .card,
+    .calendar-container {
+        padding: var(--spacing-sm);
+        max-width: 100%; 
+    }
+
+    .doctor-selection select {
+        padding: var(--spacing-xs) var(--spacing-sm); 
+    }
+}
+
+/* Small Devices (e.g., larger phones, small tablets in portrait) */
+@media (min-width: 480px) and (max-width: 767px) {
+    .main-doc_dash {
+        padding: var(--spacing-md);
+        padding-top: calc(var(--header-height-mobile) + var(--spacing-md));
+    }
+
+    .stats {
+        justify-content: center; 
+        gap: var(--spacing-md);
+    }
+
+    .stat-card {
+        flex: 1 1 calc(50% - var(--spacing-md)); 
+        max-width: calc(50% - var(--spacing-md));
+    }
+
+    .card,
+    .calendar-container {
+        padding: var(--spacing-md);
+        max-width: 100%; 
+    }
+}
+
+/* Medium Devices (e.g., tablets in landscape, small laptops) */
+@media (min-width: 768px) {
+    .main-doc_dash {
+        padding: var(--spacing-lg);
+        padding-top: calc(var(--header-height-desktop) + var(--spacing-lg)); 
+        max-width: unset;
+        margin-right: 0; 
+    }
+
+    .stats {
+        justify-content: flex-start; 
+    }
+
+    .stat-card {
+        flex: 1 1 calc(33.33% - var(--spacing-md)); 
+        max-width: calc(33.33% - var(--spacing-md));
+    }
+
+    .card {
+        /* Define a max-width for general cards on larger screens */
+        max-width: 700px; /* You removed --card-max-width-general from root, define it here or as a new variable */
+    }
+    
+    .calendar-container {
+        max-width: var(--calendar-container-max-width); 
+    }
+}
+
+/* Large Devices (e.g., desktops, large laptops) */
+@media (min-width: 992px) {
+    .main-doc_dash {
+        padding: var(--spacing-xl);
+        padding-top: calc(var(--header-height-desktop) + var(--spacing-xl));
+        /* Cap the overall dashboard content width on very large screens for readability */
+        max-width: calc(var(--dashboard-max-width) - var(--sidebar-width-desktop)); 
+        margin-left: var(--sidebar-width-desktop);
+        margin-right: auto; /* Center dashboard content if it hits max-width */
+    }
+
+    .stat-card {
+        /* On very large screens, you might want these cards to be a fixed width */
+        flex: 0 0 var(--stat-card-min-width); /* Sets fixed width, no growing/shrinking */
+    }
+    
+    .card {
+        max-width: 700px; /* Example value for general cards on large screens */
     }
 }

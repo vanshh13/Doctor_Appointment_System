@@ -14,7 +14,7 @@ const Authlogin = () => {
   // State to hold email, password, and user type (Doctor or Patient)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userType, setUserType] = useState("patient"); // Default to 'patient'
+  const [userType, setUserType] = useState("admin"); // Default to 'patient'
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -58,6 +58,7 @@ const Authlogin = () => {
       
     } catch (error) {
       console.log(error);
+      setErrorMessage("Login failed! Please fill in the correct credentials.");
       // setErrorMessage("Login failed! please fill correct Credentials");
     }
     // Add login logic here (e.g., Firebase authentication or other login service)
@@ -91,9 +92,9 @@ const Authlogin = () => {
         
 
         <button type="submit">Login</button>
-        <div className="links">
+        {/* <div className="links">
           <NavLink to="/forgot-password">Forgot Password?</NavLink> | <NavLink to="/register">Create Account</NavLink>
-        </div>
+        </div> */}
       </form>
     </div>
   );

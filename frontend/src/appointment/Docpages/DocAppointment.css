@@ -1,79 +1,152 @@
-.dashboard {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    margin-left: 2%;
+/* Responsive Layout */
+
+/* --- CSS Variables for Consistent Layout Values --- */
+:root {
+    /* Define header and sidebar widths if applicable to your overall layout */
+    --header-height-mobile: 60px;
+    --header-height-desktop: 80px;
+    --sidebar-width-mobile: 80px;  /* Example: smaller sidebar for very small screens */
+    --sidebar-width-tablet: 150px; /* Example: medium sidebar for tablets */
+    --sidebar-width-desktop: 250px; /* Example: standard desktop sidebar */
+
+    /* Global spacing */
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+
+    /* Card properties */
+    --card-bg-color: white;
+    --card-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    /* Stat card properties */
+    --stat-card-min-width: 150px;
 }
 
+/* --- Main content container (.main) --- */
 .main {
-    margin-left: 40vh;
-    padding: 20px;
-    padding-top: 80px; /* Adjusted for fixed header */
-    width: calc(175vh - 10px);
-    overflow-y: auto;
-    transition: margin-left 0.3s, width 0.3s;
+    /* Mobile-first approach: Start with full width and minimal left margin */
+    margin-left: var(--sidebar-width-mobile); /* Default sidebar width for smallest screens */
+    padding: var(--spacing-md);
+    /* Adjust padding-top to account for a fixed header.
+       Assuming your header is fixed and its height is defined by --header-height-mobile. */
+    padding-top: calc(var(--header-height-mobile) + var(--spacing-md)); 
+    width: calc(100% - var(--sidebar-width-mobile)); /* Full width minus sidebar */
+    box-sizing: border-box; /* Include padding in the element's total width */
+    overflow-y: auto; /* Allows vertical scrolling for content inside if needed */
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out; /* Smooth transitions */
+    min-height: 100vh; /* Ensures content area covers full viewport height by default */
+    background-color: #f9f9f9; /* Example background color to distinguish content area */
 }
 
+/* --- Main heading (.main h2) --- */
 .main h2 {
     margin-top: 0;
+    margin-bottom: var(--spacing-lg); /* Add some space below the main heading */
+    font-size: 1.8rem; /* Responsive font size */
+    color: #333;
 }
 
+/* --- General card styling (.card) --- */
 .card {
-    background-color: white;
-    padding: 20px;
+    background-color: var(--card-bg-color);
+    padding: var(--spacing-md);
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: var(--spacing-md); /* Consistent margin */
+    max-width: 100%; /* Ensure cards don't overflow on small screens */
+    box-sizing: border-box; /* Crucial for consistent sizing */
 }
 
+/* --- Stats section (.stats) --- */
 .stats {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-wrap: wrap; /* Allows items to wrap to the next line */
+    justify-content: center; /* Centers items when they don't fill a row */
+    gap: var(--spacing-sm); /* Spacing between stat cards */
+    margin-bottom: var(--spacing-lg); /* Space below the stats section */
 }
 
+/* --- Individual stat card styling (.stat-card) --- */
 .stat-card {
-    flex: 1;
-    margin: 10px;
-    padding: 20px;
+    /* Flex-basis: default width before flex-grow/shrink.
+       Allows 1 card per row on smallest screens, then 2, then 3+ */
+    flex: 1 1 calc(100% / 1 - (var(--spacing-sm) * 1)); /* Default to 1 per row for XS screens */
+    min-width: var(--stat-card-min-width); /* Prevents cards from becoming too narrow */
+    padding: var(--spacing-md);
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
     text-align: center;
-    min-width: 150px;
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Add hover effect */
 }
 
-
-@media (max-width: 768px) {
-    .main {
-        margin-left: 150px;
-        width: calc(100% - 150px);
-    }
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
-@media (max-width: 480px) {
+.stat-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+    color: #555;
+}
+
+.stat-card p {
+    font-size: 2rem; /* Larger for impact */
+    font-weight: bold;
+    color: #333;
+}
+
+/* --- Responsive Design with Media Queries --- */
+
+/* Small devices (e.g., larger phones, portrait tablets) */
+@media (min-width: 480px) {
     .main {
-        margin-left: 100px;
-        width: calc(100% - 100px);
+        margin-left: var(--sidebar-width-mobile); /* Keep mobile sidebar width */
+        width: calc(100% - var(--sidebar-width-mobile));
+        padding-top: calc(var(--header-height-mobile) + var(--spacing-lg));
     }
     .stats {
-        flex-direction: column;
-        align-items: center;
+        justify-content: space-around; /* Better distribution for 2 columns */
     }
     .stat-card {
-        width: 100%;
-        max-width: 300px;
-        margin: 10px 0;
+        flex: 1 1 calc(50% - var(--spacing-sm) * 2); /* Two columns with gap */
+        max-width: calc(50% - var(--spacing-sm) * 2); /* Limit width to ensure two columns */
     }
 }
 
-@media (max-width: 320px) {
+/* Medium devices (e.g., landscape tablets, small laptops) */
+@media (min-width: 768px) {
     .main {
-        margin-left: 80px;
-        width: calc(100% - 80px);
+        margin-left: var(--sidebar-width-tablet); /* Adjust for tablet sidebar */
+        width: calc(100% - var(--sidebar-width-tablet));
+        padding-top: calc(var(--header-height-desktop) + var(--spacing-lg)); /* Adjust for desktop header height */
+    }
+    .stats {
+        justify-content: space-between; /* Evenly distribute when enough space for 3+ columns */
     }
     .stat-card {
-        font-size: 14px;
-        padding: 10px;
+        flex: 1 1 calc(33.333% - var(--spacing-sm) * 2); /* Three columns with gap */
+        max-width: calc(33.333% - var(--spacing-sm) * 2); /* Limit width to ensure three columns */
+    }
+}
+
+/* Large devices (e.g., desktops, large laptops) */
+@media (min-width: 992px) {
+    .main {
+        margin-left: var(--sidebar-width-desktop); /* Adjust for full desktop sidebar */
+        width: calc(100% - var(--sidebar-width-desktop));
+        padding-top: calc(var(--header-height-desktop) + var(--spacing-xl)); /* More top padding */
+        /* Optional: Add a max-width to the main content area for very large screens
+           to prevent content from stretching too wide and becoming unreadable. */
+        max-width: calc(1400px - var(--sidebar-width-desktop)); 
+        margin-right: auto; /* Center content if max-width is applied */
+    }
+    .stat-card {
+        /* On larger screens, you might want a more fixed size for consistency */
+        flex: 0 0 calc(var(--stat-card-min-width) + var(--spacing-md)); /* Fixed width + some margin */
+        max-width: unset; /* Remove max-width from previous media queries */
     }
 }

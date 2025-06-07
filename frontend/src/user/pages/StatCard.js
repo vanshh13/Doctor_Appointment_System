@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './Dashboard.css'; // Separate CSS file
 
 const StatCard = ({ title, value }) => (
     <div className="stat-card">

@@ -174,7 +174,7 @@ const Auth = () => {
 
         <button type="submit">Login</button>
         <div className="links">
-          | <NavLink to="/register">Create Account</NavLink> |
+           <NavLink to="/register">Create Account</NavLink> 
         </div>
       </form>
     </div>

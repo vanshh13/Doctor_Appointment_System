@@ -1,62 +1,158 @@
-.main-docList {
-    margin-left: 40vh;
-    margin-bottom: 40px;
-    margin-top: 20px;
-    padding: 20px;
-    padding-top: 80px;
-    width: calc(200vh - 300px);
-    overflow-y: auto;
-    transition: margin-left 0.3s, width 0.3s;
+/* DoctorList.css */
+
+/* Define CSS variables for consistent spacing and positioning */
+:root {
+    /* Adjust these header heights to match your application's actual header heights */
+    --header-height-mobile: 60px;
+    --header-height-desktop: 80px;
+    /* Adjust this to match your actual sidebar width on desktop */
+    --sidebar-width-desktop: 250px;
 }
+
+/* --- Main Doctor List Container --- */
+.main-docList {
+    /* Base styles for mobile-first approach */
+    padding: 20px; /* Default padding for all sides */
+    /* Top padding dynamically adjusts for the fixed header height on mobile.
+       Adding extra 20px for breathing room below the header. */
+    padding-top: calc(var(--header-height-mobile));
+    margin-left: 0; /* Ensures full width on smaller screens, no sidebar pushing */
+    width: 100%; /* Takes up 100% of the viewport width on mobile */
+    margin-bottom: 40px; /* Consistent bottom margin */
+    margin-top: 0; /* Remove fixed top margin on mobile */
+    overflow-y: auto; /* Enables vertical scrolling if content exceeds viewport height */
+    box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out, padding-top 0.3s ease-in-out;
+}
+
+/* Desktop and Tablet Adjustments (for screens 768px and wider) */
+@media (min-width: 768px) {
+    .main-docList {
+        /* Adds left margin to accommodate the fixed desktop sidebar */
+        margin-left:0;
+        /* Calculates remaining width after accounting for the sidebar */
+        width: calc(100% - var(--sidebar-width-desktop));
+        padding: 30px; /* Slightly more padding for larger screens */
+        /* Top padding dynamically adjusts for the fixed header height on desktop */
+        padding-top: calc(var(--header-height-desktop) + 20px);
+        margin-top: 20px; /* Reintroduce a top margin for desktop */
+    }
+}
+
+/* --- Doctor Cards Container (Grid Layout) --- */
 .doctor-cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ensure 3 columns or fewer per row */
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .doctor-card {
-    /* width: 90%; Card takes the available grid space */
-    height: 300px; /* Keep the square shape */
-    border: 1px solid #ccc;
+    gap: 20px; /* Space between cards */
+    padding: 20px; /* Padding around the grid, consider if parent already adds padding */
+
+    /* Default: 1 column on very small screens, min width 200px per card */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* 2 columns on small screens (e.g., phones in landscape or small tablets) */
+@media (min-width: 576px) {
+    .doctor-cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+/* 3 columns on medium screens (e.g., tablets or small laptops) */
+@media (min-width: 768px) {
+    .doctor-cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Larger min-width for more content */
+        gap: 25px; /* Slightly more gap */
+    }
+}
+
+/* 4 columns on large screens (e.g., desktops) */
+@media (min-width: 1024px) {
+    .doctor-cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust minmax here as needed */
+        gap: 30px; /* Even more gap */
+    }
+}
+
+/* --- Individual Doctor Card --- */
+.doctor-card {
+    height: 350px; /* Consistent height for cards */
+    border: 1px solid #e0e0e0; /* Lighter border */
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer, elevated shadow */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; /* Distribute content vertically */
     align-items: center;
     text-align: center;
     background-color: #fff;
     padding: 15px;
-  }
-  
-  .doctor-card img {
-    width: 150px; /* Fixed size for the image */
-    height: 150px; /* Ensure the image remains a square */
-    border-radius: 50%; /* Create a circular image */
-    object-fit: cover; /* Cover the image fully within the circle, cropping excess */
-    object-position: center; /* Center the image */
-  }
-  
-  .doctor-details h3 {
-    font-size: 18px;
-    margin: 10px 0 5px;
-    color: #333;
-  }
-  
-  .doctor-details p {
-    font-size: 14px;
-    color: #666;
-    margin: 5px 0;
-  }  
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth hover effects */
+}
 
-.search-bar_doc{
-    position: fixed;
-    margin-left: 25vh;
-    width: 50%;
-    top: 5vw;
-    overflow-x: auto; /* Enable vertical scrolling if content overflows */
-    transition: margin-left 0.3s, width 0.3s;
+.doctor-card:hover {
+    transform: translateY(-5px); /* Lift card slightly on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+.doctor-card img {
+    width: 150px; /* Fixed width for the circular image */
+    height: 150px; /* Fixed height to maintain circular shape */
+    border-radius: 50%; /* Creates a circular image */
+    object-fit: cover; /* Covers the area, cropping if necessary */
+    object-position: center; /* Centers the image within its bounds */
+    margin-bottom: 10px; /* Space between image and text */
+}
+
+.doctor-details {
     display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center details vertically if space allows */
+    flex-grow: 1; /* Allows details section to grow */
+    width: 100%; /* Ensures details take full width of card */
+}
+
+.doctor-details h3 {
+    font-size: 1.1em; /* Slightly larger heading for better readability */
+    margin: 8px 0 4px;
+    color: #2c3e50; /* Darker heading color */
+}
+
+.doctor-details p {
+    font-size: 0.9em; /* Slightly smaller text for secondary details */
+    color: #555;
+    margin: 3px 0;
+    line-height: 1.4; /* Improve readability */
+}
+
+/* --- Search Bar Styling --- */
+/* This styling ensures the search bar is responsive and flows with the document. */
+/* Removed fixed positioning as it often causes layout issues on various screen sizes. */
+.search-bar_doc {
+    width: 100%; /* Full width on small screens */
+    max-width: 600px; /* Limits maximum width on larger screens */
+    margin: 0 auto 30px auto; /* Centers the search bar horizontally and adds bottom margin */
+    padding: 0 10px; /* Small horizontal padding */
+    box-sizing: border-box; /* Ensures padding is included in the width */
+    display: flex; /* Retains flex for internal alignment if any */
+    justify-content: center; /* Center the input within the search bar container */
+    align-items: center; /* Vertically align items */
+}
+
+/* Styling for the input field inside the search bar */
+.search-bar_doc input {
+    width: 100%; /* Makes the input field take the full width of its container */
+    padding: 12px 15px; /* Generous padding for better touch targets and readability */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+    font-size: 1em; /* Standard font size */
+    color: #333; /* Dark text color */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions for focus effects */
+}
+
+/* Focus state for the search bar input */
+.search-bar_doc input:focus {
+    outline: none; /* Removes default outline */
+    border-color: #4CAF50; /* Highlights border with green */
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); /* Adds a soft green glow */
 }

@@ -1,9 +1,9 @@
 .main-make_appoint {
-    margin-left: 400px;
+    margin-left: 10vw;
     padding: 20px;
-    margin-top: 40px;
-    padding-top: 80px;
-    width: calc(150vh - 300px);
+    margin-top: 10px;
+    padding-top: 20px;
+    width: calc(70vW - 300px);
     /* width: calc(170rch - 90px); */
     transition: margin-left 0.3s, width 0.3s;
   }

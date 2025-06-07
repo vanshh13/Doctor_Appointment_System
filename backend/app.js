@@ -64,7 +64,7 @@ app.use((error, req, res, next) => {
 //You can replace local server uri with MongoDB Atlas connection link
 mongoose
  .connect(
-   "mongodb://localhost:27017/Project"
+   "mongodb://localhost:27017/DoctorManagementSystem"
  )
  .then(() => {
    app.listen(5000);

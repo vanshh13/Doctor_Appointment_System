@@ -44,7 +44,7 @@ const AdminDashboard = () => {
     const filteredNotifications = Array.isArray(notifications)
         ? notifications.filter(notification =>
             notification.message.toLowerCase().includes(searchQuery.toLowerCase())
-        )
+          )
         : []; // Default to empty array if notifications is not an array
 
     return (
@@ -60,7 +60,7 @@ const AdminDashboard = () => {
                     onChange={handleSearchChange}
                     className="search-input"
                 />
-                
+
                 <div className="metrics-container">
                     <h3>Overview</h3>
                     {metrics ? (
@@ -76,24 +76,23 @@ const AdminDashboard = () => {
                 </div>
 
                 <div className="notifications-container">
-    <h3>Notifications</h3>
-    <ul>
-        {filteredNotifications.length > 0 ? (
-            filteredNotifications.map((notification) => (
-                <li key={notification._id}>
-                    <strong>{notification.message}</strong> {/* Display notification message */}
-                    <span style={{ fontSize: '0.8em', color: '#777' }}>
-                        {/* Optionally format and display the createdAt date */}
-                        {new Date(notification.createdAt).toLocaleString()}
-                    </span>
-                </li>
-            ))
-        ) : (
-            <li>No notifications found.</li>
-        )}
-    </ul>
-</div>
-
+                    <h3>Notifications</h3>
+                    <ul>
+                        {filteredNotifications.length > 0 ? (
+                            filteredNotifications.map((notification) => (
+                                <li key={notification._id}>
+                                    <strong>{notification.message}</strong> {/* Display notification message */}
+                                    <span style={{ fontSize: '0.8em', color: '#777' }}>
+                                        {/* Optionally format and display the createdAt date */}
+                                        {new Date(notification.createdAt).toLocaleString()}
+                                    </span>
+                                </li>
+                            ))
+                        ) : (
+                            <li>No notifications found.</li>
+                        )}
+                    </ul>
+                </div>
             </div>
         </div>
     );

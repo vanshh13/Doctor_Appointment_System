@@ -1,63 +1,162 @@
+
+/* Hospital.css */
+
+/* --- Main Hospital List Container --- */
 .main-hospitalList {
-    margin-left: 40vh;
-    margin-bottom: 40px;
-    margin-top: 20px;
+    /* On desktop, accounts for a sidebar with a width similar to 250px-300px */
+    /* Adjust these values based on your actual sidebar width and header height */
+    margin-left: 100px; /* Example: If your sidebar is 250px wide on desktop */
     padding: 20px;
-    padding-top: 80px;
-    width: calc(200vh - 300px);
-    overflow-y: auto;
-    transition: margin-left 0.3s, width 0.3s;
+    padding-top: 60px; /* Adjust based on your header height to prevent overlap */
+    margin-bottom: 40px; /* Adds space below the content */
+    margin-top: 0px; /* Adds space above the content */
+    width: auto; /* Allow content to take available width */
+    overflow-y: auto; /* Allows scrolling if content overflows vertically */
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out; /* Smooth transitions */
 }
 
+/* Adjustments for smaller desktops/tablets (e.g., 768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .main-hospitalList {
+        margin-left: 70px; /* Slightly narrower margin for smaller screens */
+        padding-top: 30px; /* Adjust if header height changes on tablets */
+    }
+}
+
+/* Mobile-first: Full width on small screens */
+@media (max-width: 767px) {
+    .main-hospitalList {
+        margin-left: 0; /* No left margin on mobile */
+        padding: 15px; /* Slightly less padding for smaller screens */
+        padding-top: 80px; /* More padding to clear both header and mobile hamburger */
+        width: 100%; /* Full width */
+        margin-top: 0; /* Remove top margin */
+    }
+}
+
+/* --- Hospital Cards Container (Grid Layout) --- */
 .hospital-cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ensure 3 columns or fewer per row */
-    gap: 20px;
-    padding: 20px;
+    gap: 20px; /* Space between cards */
+    padding: 20px; /* Padding around the grid */
+
+    /* Default: 1 column on very small screens */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
+/* 2 columns on small screens (e.g., phones in landscape or small tablets) */
+@media (min-width: 576px) {
+    .hospital-cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+/* 3 columns on medium screens (e.g., tablets or small laptops) */
+@media (min-width: 768px) {
+    .hospital-cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Larger min-width for more content */
+        gap: 25px; /* Slightly more gap */
+    }
+}
+
+/* 4 columns on large screens (e.g., desktops) */
+@media (min-width: 1024px) {
+    .hospital-cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* You can adjust minmax here */
+        gap: 30px; /* Even more gap */
+    }
+}
+
+/* --- Individual Hospital Card --- */
 .hospital-card {
-    height: 300px; /* Keep the square shape */
-    border: 1px solid #ccc;
+    height: 350px; /* Keep consistent height for cards */
+    border: 1px solid #e0e0e0; /* Lighter border */
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer, larger shadow */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; /* Distribute content vertically */
     align-items: center;
     text-align: center;
     background-color: #fff;
     padding: 15px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth hover effects */
+}
+
+.hospital-card:hover {
+    transform: translateY(-5px); /* Lift card slightly on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
 }
 
 .hospital-card img {
-    margin: auto;
-    border-radius: 10px;
-    width: auto; /* Fixed size for the image */
-    height: 150px; /* Ensure the image remains a square */
-    /*border-radius: 50%; /* Create a circular image */
-    object-fit: cover; /* Cover the image fully within the circle, cropping excess */
-    object-position: center; /* Center the image */
+    max-width: 100%; /* Ensure image doesn't overflow */
+    height: 150px; /* Fixed height for consistency */
+    object-fit: cover; /* Cover the area, cropping if necessary */
+    object-position: center; /* Center the image within its bounds */
+    border-radius: 8px; /* Slightly rounded corners for images */
+    margin-bottom: 10px; /* Space between image and text */
+}
+
+.hospital-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center details vertically if space allows */
+    flex-grow: 1; /* Allow details section to grow */
+    width: 100%; /* Ensure details take full width of card */
 }
 
 .hospital-details h3 {
-    font-size: 18px;
-    margin: 10px 0 5px;
-    color: #333;
+    font-size: 1.1em; /* Slightly larger heading for better readability */
+    margin: 8px 0 4px;
+    color: #2c3e50; /* Darker heading color */
 }
 
 .hospital-details p {
-    font-size: 14px;
-    color: #666;
-    margin: 5px 0;
+    font-size: 0.9em; /* Slightly smaller text for secondary details */
+    color: #555;
+    margin: 3px 0;
+    line-height: 1.4; /* Improve readability */
 }
 
+.hospital-details p:last-child {
+    font-size: 0.85em; /* Even smaller for address */
+    color: #777;
+    margin-top: 8px; /* Space above address */
+}
+
+
+/* --- Search Bar Styling --- */
 .search-bar_hospital {
-    position: fixed;
-    margin-left: 25vh;
-    width: 50%;
-    top: 45pt;
-    overflow-x: auto; /* Enable vertical scrolling if content overflows */
-    transition: margin-left 0.3s, width 0.3s;
+    /* No longer fixed position as it caused issues with responsiveness */
+    /* It will flow with the content. */
+    width: 90%; /* Default width on small screens */
+    margin: 0 auto 10px auto; /* Center it and add bottom margin */
+    padding: 0 0px; /* Add some horizontal padding */
+}
+
+@media (min-width: 768px) {
+    .search-bar_hospital {
+        width: 70%; /* Wider on tablets/desktops */
+        max-width: 600px; /* Maximum width to prevent it from getting too wide */
+        margin: 0 auto 30px auto; /* Maintain centering and bottom margin */
+    }
+}
+
+/* Ensure the input inside the search bar is styled responsively */
+.search-bar_hospital input {
+    width: 100%;
+    padding: 12px 11px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    font-size: 1em;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-bar_hospital input:focus {
+    outline: none;
+    border-color: #4CAF50; /* Highlight color on focus */
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); /* Soft glow on focus */
 }

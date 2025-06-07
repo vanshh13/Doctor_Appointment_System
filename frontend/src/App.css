@@ -2,49 +2,61 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh; /* Full viewport height */
+    font-size: 1.5rem;
+    color: #555;
+    background-color: #f0f2f5;
+    /* Add a spinner or more elaborate loading UI if desired */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+:root {
+    --header-height-mobile: 120px; /* Example: Adjust this based on your actual header height on mobile */
+    --header-height-desktop: 70px; /* Example: Adjust this based on your actual header height on desktop */
+    --sidebar-height-mobile: 50px; /* This is the intended height of your mobile sidebar bar */
+    --sidebar-width-desktop: 250px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f2f5;
   margin: 0;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  padding-right: 60%;
+  height: 90vh;
+  /* Default padding for desktop. */
+    padding-top: var(--header-height-desktop); /* Push content below desktop header */
+    padding-left: var(--sidebar-width-desktop); /* Push content right of desktop sidebar */
+}
+
+/* --- CRITICAL GLOBAL CSS (place this in App.css or index.css) --- */
+/* These styles are fundamental for all layouts to ensure 100vh works and content doesn't overlap. */
+
+html{
+    height: 100%; /* Ensures 100vh is correctly calculated relative to the full viewport */
+    margin: 0; /* Remove default browser margins */
+    padding: 0; /* Remove default browser padding */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Adjust padding for mobile devices (up to 767px wide) */
+@media (max-width: 767px) {
+    body {
+        /* Combined height of fixed header AND fixed mobile sidebar */
+        padding-top: calc(var(--header-height-mobile) + var(--sidebar-height-mobile));
+        padding-left: 0; /* No left padding on mobile as sidebar is at the top */
+    }
+}
+
+/* If header/sidebar can become even taller on very small screens, adjust this: */
+@media (max-width: 400px) {
+    body {
+        /* You might need to increase this if header/sidebar wrap significantly more.
+           MEASURE ACCURATELY IN DEV TOOLS! */
+        padding-top: calc(var(--header-height-mobile) + var(--sidebar-height-mobile) + 30px); /* Example: +30px buffer */
+    }
 }
 
 .dashboard {

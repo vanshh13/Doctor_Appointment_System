@@ -1,91 +1,124 @@
-/* Main Dashboard container */
+/* PatientDashboard.css */
+
+/* Root variables for consistent spacing and colors (optional but good practice) */
+:root {
+    --primary-color: #4caf50; /* Green */
+    --secondary-color: #a8e6a3; /* Lighter green */
+    --text-dark: #333;
+    --text-medium: #555;
+    --text-light: #666;
+    --bg-light: #f2f8f2;
+    --card-bg: #fff;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+    --sidebar-width-desktop: 50px; /* Adjust this to match your actual sidebar width */
+    --header-height-mobile: 60px; /* Adjust to your actual header height on mobile */
+    --header-height-desktop: 80px; /* Adjust to your actual header height on desktop */
+}
+
+/* --- Main Dashboard Container --- */
 .main-pat_Dash {
-    margin-top: 4vh;
-    margin-left: 35vh; /* Adjust margin to accommodate sidebar */
-    padding: 40px 40px; /* Increased padding for better spacing */
-    padding-top: 80px; /* Maintain padding at the top */
-    width: calc(96vw - 310px); /* Adjust width based on sidebar size */
-    /*height: calc(100vh - 0px); /* Full-height minus header/footer */
-    overflow-y: auto;
-    transition: margin-left 0.3s, width 0.3s;
+    /* Base styles for mobile-first approach */
+    padding: 20px; /* Consistent padding around content */
+    max-width: 1000px;
+    margin-left: 0; /* Full width on mobile */
+    width: 100%; /* Full width on mobile */
+    overflow-y: auto; /* Allow vertical scrolling */
+    min-height: calc(100vh - var(--header-height-mobile)); /* Ensure content takes at least remaining height */
+    box-sizing: border-box; /* Include padding in width/height calculations */
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out, padding-top 0.3s ease-in-out;
 }
 
-/* Individual card styling */
-.card {
-    background-color: #fff;
-    padding: 30px; /* More padding for better layout */
-    border-radius: 12px; /* Smoother corners */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer, elevated shadow */
-    margin-bottom: 30px; /* Space between cards */
-    transition: transform 0.2s ease-in-out; /* Hover effect transition */
+/* Desktop & Tablet Adjustments (e.g., for screens 768px and wider) */
+@media (min-width: 768px) {
+    .main-pat_Dash {
+        /* Pushes content right to make space for the desktop sidebar */
+        width: calc(100%); /* Take remaining width */
+        padding: 40px; /* More padding on larger screens */
+        padding-top: calc(var(--header-height-desktop) + 20px); /* Space for fixed header + extra padding */
+        min-height: calc(100vh - var(--header-height-desktop)); /* Adjust min-height for desktop header */
+    }
 }
 
-/* Card hover effect */
-.card:hover {
-    transform: translateY(-10px); /* Slight elevation on hover */
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
-}
-
-/* Stats container */
+/* --- Stats Container --- */
 .stats {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap; /* Allows items to wrap to the next line on smaller screens */
     gap: 20px; /* Space between stat cards */
-    margin-bottom: 40px; /* More space under the stats section */
-    flex-wrap: wrap; /* Responsive for smaller screens */
+    margin-bottom: 40px; /* Space under the stats section */
+    justify-content: center; /* Center align cards when they wrap */
 }
 
-/* Individual stat card */
+/* --- Individual Stat Card --- */
 .stat-card {
-    flex: 1;
-    color: #fff; /* Text color for better contrast */
+    flex: 1; /* Allow cards to grow and shrink */
+    min-width: 250px; /* Minimum width for each stat card */
+    max-width: 100%; /* Prevents cards from getting too wide in a single column */
+    background-color: var(--card-bg); /* Use card background for consistency */
     border-radius: 12px;
     padding: 30px;
-    margin-right: 20px; /* Space between cards */
     text-align: center;
-    transition: background-color 0.3s ease;
-    min-width: 250px; /* Ensure minimum size on smaller screens */
+    box-shadow: 0 4px 12px var(--shadow-light); /* Apply card shadow */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-/* Hover effect for stat cards */
-.stat-card:hover {
-    background-color: #eff3f2; /* Slightly darker green on hover */
+/* Specific colors for stat cards - apply these as additional classes in your JSX */
+.stat-card.appointments {
+    background-color: #e0f2f7; /* Light blue */
+    color: #2196f3; /* Darker blue text */
 }
+.stat-card.history {
+    background-color: #fce4ec; /* Light pink */
+    color: #e91e63; /* Darker pink text */
+}
+.stat-card.prescriptions {
+    background-color: #e8f5e9; /* Very light green */
+    color: #4caf50; /* Primary green text */
+}
+/* Ensure hover effect also changes text color */
+.stat-card.appointments:hover { background-color: #bbdefb; }
+.stat-card.history:hover { background-color: #f8bbd0; }
+.stat-card.prescriptions:hover { background-color: #c8e6c9; }
 
-/* Stat card title */
+
 .stat-card h3 {
-    font-size: 18px;
+    font-size: 1.1em; /* Adjust relative to root font size */
     margin-bottom: 10px;
-    color: #4caf50;
-    font-weight: bold;
+    font-weight: 600; /* Medium bold */
+    color: inherit; /* Inherit color from parent stat-card for custom colors */
 }
 
-/* Stat card number */
 .stat-card p {
-    font-size: 36px; /* Larger for numbers */
+    font-size: 2.2em; /* Larger for numbers */
     font-weight: bold;
     margin: 0;
+    color: inherit; /* Inherit color */
 }
 
-/* Appointments, History, and Prescriptions section */
-.upcoming-appointments, .medical-history, .prescriptions, .profile {
-    background-color: #fff;
+/* --- Individual Card Styling (Appt, History, Prescriptions, Profile) --- */
+.card {
+    background-color: var(--card-bg);
+    padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    box-shadow: 0 4px 12px var(--shadow-light);
+    margin-bottom: 30px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-/* Section headings */
+.card:hover {
+    transform: translateY(-5px); /* Slight elevation on hover */
+    box-shadow: 0 6px 16px var(--shadow-medium); /* Stronger shadow on hover */
+}
+
 .card h3 {
-    font-size: 20px;
+    font-size: 1.5em; /* Larger heading */
     font-weight: 600;
-    color: #333; /* Darker text color for better readability */
+    color: var(--text-dark);
     margin-bottom: 15px;
-    border-bottom: 2px solid #f0f0f0; /* Separator line under section title */
+    border-bottom: 2px solid #f0f0f0;
     padding-bottom: 10px;
 }
 
-/* List inside each card */
 .card ul {
     list-style: none;
     padding: 0;
@@ -93,31 +126,32 @@
 }
 
 .card ul li {
-    font-size: 16px;
-    padding: 10px 0;
-    border-bottom: 1px solid #e0e0e0; /* Divider between items */
-    color: #555;
+    font-size: 1em;
+    padding: 12px 0; /* More vertical padding for list items */
+    border-bottom: 1px solid #e0e0e0;
+    color: var(--text-medium);
 }
 
-/* Last list item without border */
 .card ul li:last-child {
     border-bottom: none;
 }
 
+/* --- Responsive Adjustments for Smaller Screens --- */
 
-/* Responsive layout for smaller screens */
-@media (max-width: 768px) {
-    .stats {
-        flex-direction: column; /* Stack stats vertically */
-    }
-
+/* For devices narrower than 600px, stat cards will stack */
+@media (max-width: 599px) {
     .stat-card {
-        margin-right: 0;
-        margin-bottom: 20px;
+        flex: 0 0 100%; /* Each stat card takes full width */
+        margin-right: 0; /* Remove right margin */
+        margin-bottom: 20px; /* Add bottom margin for stacking */
     }
+}
 
+/* For devices narrower than 768px, hide fixed sidebar elements */
+@media (max-width: 767px) {
+    /* If your sidebar transforms or hides, ensure main content adapts */
     .main-pat_Dash {
-        margin-left: 0; /* Adjust for mobile screens */
-        width: 100vw;
+        margin-left: 0; /* Full width */
+        width: 90%;
     }
 }
