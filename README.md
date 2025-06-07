@@ -64,13 +64,6 @@ This system offers a comprehensive set of functionalities for various user roles
 
 ---
 
-## 💻 Technical Assumptions & Dependencies
-
-* **Internet Connectivity:** The system requires an active internet connection for end-users to access the website.
-* **Modern Web Browser:** Users are assumed to have a compatible web browser capable of displaying the website correctly.
-
----
-
 ## 🛠️ Installation & Setup
 
 Follow these steps to get the Doctor Appointment System up and running on your local machine:
@@ -84,14 +77,7 @@ cd Doctor_Appointment_System
 cd backend
 npm install
 
-# 3. Configure your backend environment variables
-# Create a '.env' file in the 'backend' directory with your sensitive information.
-# Example .env file content:
-# MONGODB_URI=mongodb+srv://your_username:your_password@your_cluster_url/your_database_name?retryWrites=true&w=majority
-# JWT_SECRET=your_secret_jwt_key_here
-# PORT=5000
-
-# 4. Start the backend server
+# 3. Start the backend server
 npm start # This will typically run on http://localhost:5000
 
 # 5. Navigate into the frontend directory and install dependencies
