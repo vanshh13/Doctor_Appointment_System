@@ -1,12 +1,12 @@
-# Doctor Appointment System
+# HealthcareHub
 
-Welcome to the **Doctor Appointment System**! This web-based application simplifies finding doctors, booking appointments, and managing patient healthcare records. It offers a seamless experience for patients to connect with healthcare providers and for doctors/receptionists to manage their schedules efficiently.
+Welcome to **HealthcareHub**! This web-based application simplifies finding doctors, booking appointments, and managing patient healthcare records. It offers a seamless experience for patients to connect with healthcare providers and for doctors/receptionists to manage their schedules efficiently.
 
 ---
 
 ## 📸 Screenshots
 
-Here's a glimpse of the Doctor Appointment System in action across various user interfaces:
+Here's a glimpse of HealthcareHub in action across various user interfaces:
 
 | Hospital List | Patient Dashboard | Doctor Dashboard | Receptionist Dashboard |
 | :------------------------------------------------------: | :---------------------------------------------------------: | :-------------------------------------------------------: | :---------------------------------------------------------------: |
@@ -22,7 +22,7 @@ Here's a glimpse of the Doctor Appointment System in action across various user 
 
 ## ✨ Project Overview
 
-The Doctor Appointment System is designed to streamline the traditional appointment booking process. It provides a centralized platform for patients to find suitable doctors based on their needs, book appointments, and manage their health information. For healthcare providers, it offers tools to manage patient records, appointments, and receive feedback.
+HealthcareHub is designed to streamline the traditional appointment booking process. It provides a centralized platform for patients to find suitable doctors based on their needs, book appointments, and manage their health information. For healthcare providers, it offers tools to manage patient records, appointments, and receive feedback.
 
 ---
 
@@ -66,12 +66,12 @@ This system offers a comprehensive set of functionalities for various user roles
 
 ## 🛠️ Installation & Setup
 
-Follow these steps to get the Doctor Appointment System up and running on your local machine:
+Follow these steps to get HealthcareHub up and running on your local machine:
 
 ```bash
 # 1. Clone the repository
-git clone [https://github.com/vanshh13/Doctor_Appointment_System.git](https://github.com/vanshh13/Doctor_Appointment_System.git)
-cd Doctor_Appointment_System
+git clone https://github.com/vanshh13/HealthcareHub.git
+cd HealthcareHub
 
 # 2. Navigate into the backend directory and install dependencies
 cd backend
